@@ -6,8 +6,10 @@
 package com.mycompany.testconducir;
 
 import java.awt.Color;
+import java.awt.event.ActionEvent;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JRootPane;
 import javax.swing.UIManager;
 
 /**
@@ -20,23 +22,12 @@ public class PanelPrincipal extends javax.swing.JFrame {
      * Creates new form PanelPrincipal
      */
     public PanelPrincipal() {
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	setResizable(false);
+        this.setUndecorated(true);
+        this.getRootPane().setWindowDecorationStyle(JRootPane.FRAME);
         initComponents();
-
-        
-//        iniciar = new JButton ("Iniciar");
-//        iniciar.setBackground(new Color(255,255,255)) ;
-//        iniciar.setBounds(300,50,200,50);
-//        add(iniciar);
-//        
-//        sobre_mi = new JButton ("Sobre mi");
-//        sobre_mi.setBackground(new Color(255,255,255)) ;
-//        sobre_mi.setBounds(300,250,200,50);
-//        add(sobre_mi);
-//        
-//        salir = new JButton ("Salir");
-//        salir.setBackground(new Color(255,255,255)) ;
-//        salir.setBounds(300,350,200,50);
-//        add(salir);
+        setVisible(true);
         
     }
 
@@ -66,6 +57,11 @@ public class PanelPrincipal extends javax.swing.JFrame {
 
         jButton2.setFont(new java.awt.Font("Century Gothic", 1, 16)); // NOI18N
         jButton2.setText("Salir");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("?");
         jButton3.putClientProperty("JButton.buttonType", "help");
@@ -108,15 +104,23 @@ public class PanelPrincipal extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    //BOTÓN INICIAR
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    //BOTÓN SOBRE MÍ
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
+       new SobreMiPanel();
     }//GEN-LAST:event_jButton3ActionPerformed
+    
+    //BOTÓN SALIR
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments

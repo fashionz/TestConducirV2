@@ -8,7 +8,12 @@ package com.mycompany.testconducir;
 import com.sun.tools.javac.Main;
 import java.net.URL;
 import javax.swing.ImageIcon;
-
+import javax.swing.JFrame;
+import javax.swing.JRootPane;
+import java.awt.Color;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.UIManager;
 /**
  *
  * @author Alumno-Tarde
@@ -19,9 +24,21 @@ public class SobreMiPanel extends javax.swing.JFrame {
      * Creates new form SobreMiPanel
      */
     public SobreMiPanel() {
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	setResizable(false);
+        this.setUndecorated(true);
+        this.getRootPane().setWindowDecorationStyle(JRootPane.FRAME);
         initComponents();
         URL imageResource = Main.class.getClassLoader().getResource("imagen_sobremi.jpg");
-        jLabel1.setIcon(new ImageIcon(imageResource));
+        imagen.setIcon(new ImageIcon(imageResource));
+        setVisible(true);
+               try {
+            UIManager.setLookAndFeel(new com.formdev.flatlaf.intellijthemes.FlatVuesionIJTheme());
+        } catch (Exception ex) {
+            java.util.logging.Logger.getLogger(PanelPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+               
+        
     }
 
     /**
@@ -33,66 +50,125 @@ public class SobreMiPanel extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        imagen = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+        miNombre = new javax.swing.JLabel();
+        curso = new javax.swing.JLabel();
+        contacto = new javax.swing.JLabel();
+        version = new javax.swing.JLabel();
+        jSeparator2 = new javax.swing.JSeparator();
+        textoCurso = new javax.swing.JLabel();
+        textoContacto = new javax.swing.JLabel();
+        textoVersion = new javax.swing.JLabel();
+        version1 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        imagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagen_sobremi.jpg"))); // NOI18N
+        imagen.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        imagen.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        miNombre.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        miNombre.setText("Roberto Álvarez");
+
+        curso.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        curso.setText("Curso: ");
+
+        contacto.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        contacto.setText("Contacto: ");
+
+        version.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        version.setText("Version: ");
+
+        textoCurso.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        textoCurso.setText("2DAM Tarde");
+
+        textoContacto.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        textoContacto.setText("esubafashionz@gmail.com");
+
+        textoVersion.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        textoVersion.setText("1.0");
+
+        version1.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        version1.setText("Copyright © 2020 RobzAlvz All rights reserved");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(132, 132, 132)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(148, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(178, 178, 178)
+                        .addComponent(imagen, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(191, 191, 191)
+                        .addComponent(miNombre))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(35, 35, 35)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(74, 74, 74)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(curso)
+                            .addComponent(contacto)
+                            .addComponent(version))
+                        .addGap(57, 57, 57)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(textoVersion)
+                            .addComponent(textoContacto)
+                            .addComponent(textoCurso)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(106, 106, 106)
+                        .addComponent(version1)))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(168, Short.MAX_VALUE))
+                .addGap(22, 22, 22)
+                .addComponent(imagen, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(8, 8, 8)
+                .addComponent(miNombre)
+                .addGap(9, 9, 9)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 4, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(7, 7, 7)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(curso)
+                    .addComponent(textoCurso))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(contacto)
+                    .addComponent(textoContacto))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(version)
+                    .addComponent(textoVersion))
+                .addGap(15, 15, 15)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                .addComponent(version1)
+                .addGap(13, 13, 13))
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(SobreMiPanel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(SobreMiPanel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(SobreMiPanel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(SobreMiPanel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new SobreMiPanel().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel contacto;
+    private javax.swing.JLabel curso;
+    private javax.swing.JLabel imagen;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JLabel miNombre;
+    private javax.swing.JLabel textoContacto;
+    private javax.swing.JLabel textoCurso;
+    private javax.swing.JLabel textoVersion;
+    private javax.swing.JLabel version;
+    private javax.swing.JLabel version1;
     // End of variables declaration//GEN-END:variables
 }
