@@ -5,7 +5,6 @@
  */
 package com.mycompany.testconducir;
 
-import com.sun.tools.javac.Main;
 import java.net.URL;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -14,6 +13,12 @@ import java.awt.Color;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
+import org.apache.log4j.chainsaw.Main;
+
+
+
+
+
 /**
  *
  * @author Alumno-Tarde
@@ -29,7 +34,7 @@ public class SobreMiPanel extends javax.swing.JFrame {
         this.setUndecorated(true);
         this.getRootPane().setWindowDecorationStyle(JRootPane.FRAME);
         initComponents();
-        URL imageResource = Main.class.getClassLoader().getResource("imagen_sobremi.jpg");
+        URL imageResource = Main.class.getClassLoader().getResource("img_sobremi.jpg");
         imagen.setIcon(new ImageIcon(imageResource));
         setVisible(true);
                try {
@@ -64,7 +69,7 @@ public class SobreMiPanel extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        imagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagen_sobremi.jpg"))); // NOI18N
+        imagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img_sobremi.jpg"))); // NOI18N
         imagen.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         imagen.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 

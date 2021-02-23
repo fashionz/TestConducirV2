@@ -7,10 +7,14 @@ package com.mycompany.testconducir;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
+import java.io.File;
 import javax.swing.JButton;
+import javax.swing.JEditorPane;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JRootPane;
 import javax.swing.UIManager;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -18,17 +22,21 @@ import javax.swing.UIManager;
  */
 public class PanelPrincipal extends javax.swing.JFrame {
     JButton iniciar, sobre_mi, salir;
+    private JEditorPane editorPane1;
+    private File questions_file;
+    private ConexionBD conexion;
+
     /**
      * Creates new form PanelPrincipal
      */
     public PanelPrincipal() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	setResizable(false);
+        setResizable(false);
         this.setUndecorated(true);
         this.getRootPane().setWindowDecorationStyle(JRootPane.FRAME);
         initComponents();
         setVisible(true);
-        
+
     }
 
     /**
@@ -109,17 +117,27 @@ public class PanelPrincipal extends javax.swing.JFrame {
 
     //BOTÓN INICIAR
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        editorPane1 = new JEditorPane();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("database", "db");
+        JFileChooser fc = new JFileChooser();
+        fc.setFileFilter(filter);
+        int seleccion = fc.showOpenDialog(editorPane1);
+        if (seleccion == JFileChooser.APPROVE_OPTION) {
+            questions_file = fc.getSelectedFile();
+            conexion = new ConexionBD(questions_file);
+            dispose();
+            new FramePreguntas(conexion);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     //BOTÓN SOBRE MÍ
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-       new SobreMiPanel();
+        new SobreMiPanel();
     }//GEN-LAST:event_jButton3ActionPerformed
-    
+
     //BOTÓN SALIR
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
@@ -131,7 +149,7 @@ public class PanelPrincipal extends javax.swing.JFrame {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-       try {
+        try {
             UIManager.setLookAndFeel(new com.formdev.flatlaf.intellijthemes.FlatVuesionIJTheme());
         } catch (Exception ex) {
             java.util.logging.Logger.getLogger(PanelPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
