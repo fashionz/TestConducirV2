@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -50,14 +51,23 @@ public class ConexionBD {
                 preguntas.add(preg);
             }
             for (Pregunta pregunta : preguntas) {
-                rsTest = statement.executeQuery("SELECT * FROM tablarespuestas WHERE id_resp_preg");
-                while (rsTest.next()) {
-                    pregunta.setRespuestaVerdadera(rsTest.getString(2));
-                    pregunta.setRespuestaDos(rsTest.getString(3));
-                    pregunta.setRespuestaTres(rsTest.getString(4));
-                    pregunta.setRespuestaCuatro(rsTest.getString(5));
+                rsTest = statement.executeQuery("SELECT * FROM tablarespuestas WHERE id_resp_preg= " + pregunta.getIdPregunta());
+                ArrayList<Respuesta> respuestas = new ArrayList();
+                //Este condicional genera las preguntas y guarda la respuesta verdadera.
+                if (rsTest.next()) {
+                    respuestas.add(new Respuesta(rsTest.getString(2), true));
+                    respuestas.add(new Respuesta(rsTest.getString(3), false));
+                    respuestas.add(new Respuesta(rsTest.getString(4), false));
+                    respuestas.add(new Respuesta(rsTest.getString(5), false));
                 }
+                //Randomiza las respuestas
+                Collections.shuffle(respuestas);
+                pregunta.setRespuestaUno(respuestas.get(0));
+                pregunta.setRespuestaDos(respuestas.get(1));
+                pregunta.setRespuestaTres(respuestas.get(2));
+                pregunta.setRespuestaCuatro(respuestas.get(3));
             }
+
             rsTest.close();
         } catch (SQLException ex) {
             Logger.getLogger(ConexionBD.class.getName()).log(Level.SEVERE, null, ex);
@@ -95,6 +105,4 @@ public class ConexionBD {
 //        }
 //        return listaRespuestas;
 //    }
-    //Método que guarda las respuestas y te dice cuantos aciertos has tenido en el test.
-    //También te dirá en base a las preguntas y aciertos, si has suspendido y no.
 }

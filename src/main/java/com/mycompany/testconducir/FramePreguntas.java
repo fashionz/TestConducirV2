@@ -18,7 +18,7 @@ public class FramePreguntas extends javax.swing.JFrame {
     private ArrayList<Pregunta> listapreguntas;
     private ConexionBD bd;
     private int numeroPregunta;
-    
+
     /**
      * Creates new form FramePreguntas
      */
@@ -30,21 +30,27 @@ public class FramePreguntas extends javax.swing.JFrame {
         this.getRootPane().setWindowDecorationStyle(JRootPane.FRAME);
         initComponents();
         setVisible(true);
+        //Randomiza las preguntas
+        Collections.shuffle(listapreguntas);
         escribirPyR();
+
     }
-    
+
     public void escribirPyR() {
+
         Pregunta preg = listapreguntas.get(numeroPregunta);
         labelNumPreg.setText(String.valueOf(numeroPregunta + 1));
         labelPregunta.setText("<html>" + preg.getTextoPregunta() + "</html>");
-        respuestaUno.setText("<html>" + preg.getRespuestaVerdadera() + "</html>");
-        respuestaDos.setText("<html>" + preg.getRespuestaDos() + "</html>");
-        respuestaTres.setText("<html>" + preg.getRespuestaTres() + "</html>");
-        respuestaCuatro.setText("<html>" + preg.getRespuestaCuatro() + "</html>");
-        
+        respuestaUno.setText("<html>" + preg.getRespuestaUno().getTextoRespuesta() + "</html>");
+        respuestaDos.setText("<html>" + preg.getRespuestaDos().getTextoRespuesta() + "</html>");
+        respuestaTres.setText("<html>" + preg.getRespuestaTres().getTextoRespuesta() + "</html>");
+        respuestaCuatro.setText("<html>" + preg.getRespuestaCuatro().getTextoRespuesta() + "</html>");
+        if (numeroPregunta + 1 == listapreguntas.size()) {
+            botonSiguiente.setText("Finalizar");
+        }
+
     }
-    
-    
+
 //    public void escribirPyR() {
 //        String[] preg = listapreguntas.get(numeroPregunta);
 //        labelPregunta.setText(preg[1]);
@@ -56,11 +62,6 @@ public class FramePreguntas extends javax.swing.JFrame {
 //        respuestaTres.setText(listarespuestas.get(0)[3]);
 //        respuestaCuatro.setText(listarespuestas.get(0)[4]);
 //    }
-    
-    
-    
-    
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -223,6 +224,13 @@ public class FramePreguntas extends javax.swing.JFrame {
     }//GEN-LAST:event_respuestaTresActionPerformed
 
     private void botonSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSiguienteActionPerformed
+        if (!botonSiguiente.getText().equals("Finalizar")) {
+            numeroPregunta++;
+            escribirPyR();
+        }
+        else{
+            System.exit(0);
+        }
 
     }//GEN-LAST:event_botonSiguienteActionPerformed
 
