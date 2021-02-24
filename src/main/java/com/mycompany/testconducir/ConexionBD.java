@@ -40,38 +40,61 @@ public class ConexionBD {
         }
     }
 
-    //Método que guarda las preguntas en un Array de Strings con sus dos campos (ID y TextoPreguntas)
-    public ArrayList<String[]> getPreguntas() {
-        ArrayList<String[]> listaPreguntas = new ArrayList<>();
+    public ArrayList<Pregunta> getPreguntasYRespuestas() {
+        ArrayList<Pregunta> preguntas = new ArrayList();
         try {
             ResultSet rsTest = statement.executeQuery("SELECT * FROM tablapreguntas");
             while (rsTest.next()) {
-                String preguntas[] = {String.valueOf(rsTest.getObject(1)), String.valueOf(rsTest.getObject(2))};
-                listaPreguntas.add(preguntas);
+                //esto hace que salga la pregunta y los null son las 4 posibles respuestas.
+                Pregunta preg = new Pregunta(rsTest.getInt(1), rsTest.getString(2), null, null, null, null);
+                preguntas.add(preg);
+            }
+            for (Pregunta pregunta : preguntas) {
+                rsTest = statement.executeQuery("SELECT * FROM tablarespuestas WHERE id_resp_preg");
+                while (rsTest.next()) {
+                    pregunta.setRespuestaVerdadera(rsTest.getString(2));
+                    pregunta.setRespuestaDos(rsTest.getString(3));
+                    pregunta.setRespuestaTres(rsTest.getString(4));
+                    pregunta.setRespuestaCuatro(rsTest.getString(5));
+                }
             }
             rsTest.close();
         } catch (SQLException ex) {
             Logger.getLogger(ConexionBD.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return listaPreguntas;
+        return preguntas;
     }
 
+    //Método que guarda las preguntas en un Array de Strings con sus dos campos (ID y TextoPreguntas)
+//    public ArrayList<String[]> getPreguntas() {
+//        ArrayList<String[]> listaPreguntas = new ArrayList<>();
+//        try {
+//            ResultSet rsTest = statement.executeQuery("SELECT * FROM tablapreguntas");
+//            while (rsTest.next()) {
+//                String preguntas[] = {String.valueOf(rsTest.getObject(1)), String.valueOf(rsTest.getObject(2))};
+//                listaPreguntas.add(preguntas);
+//            }
+//            rsTest.close();
+//        } catch (SQLException ex) {
+//            Logger.getLogger(ConexionBD.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        return listaPreguntas;
+//    }
     //Método que guarda las respuestas en un Array de Strings con sus seis campos (ID, Pregunta Correcta, 2º-3º-4º Preguntas <Erroneas> y la ID Foranea)
-    public ArrayList<String[]> getRespuestas(int idresppreg) {
-        ArrayList<String[]> listaRespuestas = new ArrayList<>();
-        try {
-            ResultSet rsTest = statement.executeQuery("SELECT * FROM tablarespuestas WHERE id_resp_preg= " + idresppreg);
-            while (rsTest.next()) {
-                String respuestas[] = {String.valueOf(rsTest.getObject(1)), String.valueOf(rsTest.getObject(2)), String.valueOf(rsTest.getObject(3)), String.valueOf(rsTest.getObject(4)), String.valueOf(rsTest.getObject(5)), String.valueOf(rsTest.getObject(6))};
-                listaRespuestas.add(respuestas);
-            }
-            rsTest.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(ConexionBD.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return listaRespuestas;
-    }
-
+//    public ArrayList<String[]> getRespuestas(int idresppreg) {
+//        ArrayList<String[]> listaRespuestas = new ArrayList<>();
+//        try {
+//            ResultSet rsTest = statement.executeQuery("SELECT * FROM tablarespuestas WHERE id_resp_preg= " + idresppreg);
+//            while (rsTest.next()) {
+//                String respuestas[] = {String.valueOf(rsTest.getObject(1)), String.valueOf(rsTest.getObject(2)), String.valueOf(rsTest.getObject(3)), String.valueOf(rsTest.getObject(4)), String.valueOf(rsTest.getObject(5)), String.valueOf(rsTest.getObject(6))};
+//                listaRespuestas.add(respuestas);
+//            }
+//            rsTest.close();
+//        } catch (SQLException ex) {
+//            Logger.getLogger(ConexionBD.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        return listaRespuestas;
+//    }
     //Método que guarda las respuestas y te dice cuantos aciertos has tenido en el test.
     //También te dirá en base a las preguntas y aciertos, si has suspendido y no.
 }

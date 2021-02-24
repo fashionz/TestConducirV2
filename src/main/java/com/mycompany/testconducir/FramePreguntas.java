@@ -6,6 +6,7 @@
 package com.mycompany.testconducir;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import javax.swing.JRootPane;
 
 /**
@@ -14,19 +15,49 @@ import javax.swing.JRootPane;
  */
 public class FramePreguntas extends javax.swing.JFrame {
 
-    private ArrayList<String[]> listapreguntas;
+    private ArrayList<Pregunta> listapreguntas;
     private ConexionBD bd;
+    private int numeroPregunta;
     
     /**
      * Creates new form FramePreguntas
      */
     public FramePreguntas(ConexionBD bd) {
+        listapreguntas = bd.getPreguntasYRespuestas();
+        numeroPregunta = 0;
         setResizable(false);
         this.setUndecorated(true);
         this.getRootPane().setWindowDecorationStyle(JRootPane.FRAME);
         initComponents();
         setVisible(true);
+        escribirPyR();
     }
+    
+    public void escribirPyR() {
+        Pregunta preg = listapreguntas.get(numeroPregunta);
+        labelNumPreg.setText(String.valueOf(numeroPregunta + 1));
+        labelPregunta.setText("<html>" + preg.getTextoPregunta() + "</html>");
+        respuestaUno.setText("<html>" + preg.getRespuestaVerdadera() + "</html>");
+        respuestaDos.setText("<html>" + preg.getRespuestaDos() + "</html>");
+        respuestaTres.setText("<html>" + preg.getRespuestaTres() + "</html>");
+        respuestaCuatro.setText("<html>" + preg.getRespuestaCuatro() + "</html>");
+        
+    }
+    
+    
+//    public void escribirPyR() {
+//        String[] preg = listapreguntas.get(numeroPregunta);
+//        labelPregunta.setText(preg[1]);
+//        System.out.println(preg[0]);
+//        ArrayList<String[]> listarespuestas = bd.getRespuestas(Integer.parseInt(preg[0]));
+//        Collections.shuffle(listarespuestas);
+//        respuestaUno.setText(listarespuestas.get(0)[1]);
+//        respuestaDos.setText(listarespuestas.get(0)[2]);
+//        respuestaTres.setText(listarespuestas.get(0)[3]);
+//        respuestaCuatro.setText(listarespuestas.get(0)[4]);
+//    }
+    
+    
     
     
 
@@ -61,6 +92,7 @@ public class FramePreguntas extends javax.swing.JFrame {
         labelTitulo.setText("PREGUNTAS");
 
         labelNumPreg.setFont(new java.awt.Font("Century Gothic", 1, 36)); // NOI18N
+        labelNumPreg.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         labelPregunta.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         labelPregunta.setText("jLabel3");
@@ -122,13 +154,9 @@ public class FramePreguntas extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(labelPregunta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(respuestaUno)
-                                            .addComponent(respuestaDos)
-                                            .addComponent(respuestaTres)
-                                            .addComponent(respuestaCuatro))
-                                        .addGap(0, 0, Short.MAX_VALUE))))
+                                    .addComponent(respuestaDos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(respuestaTres, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(respuestaCuatro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGap(45, 45, 45)
                                 .addComponent(botonAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -144,6 +172,10 @@ public class FramePreguntas extends javax.swing.JFrame {
                     .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 535, Short.MAX_VALUE)
                     .addComponent(jSeparator2))
                 .addContainerGap(19, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(83, 83, 83)
+                .addComponent(respuestaUno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -167,10 +199,11 @@ public class FramePreguntas extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(botonSiguiente, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botonAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jSeparator3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(botonSiguiente, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(botonAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addComponent(version1)
                 .addContainerGap())
