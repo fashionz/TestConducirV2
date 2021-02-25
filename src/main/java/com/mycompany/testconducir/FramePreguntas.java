@@ -18,6 +18,8 @@ public class FramePreguntas extends javax.swing.JFrame {
     private ArrayList<Pregunta> listapreguntas;
     private ConexionBD bd;
     private int numeroPregunta;
+    private Respuesta[] respuestasAcertadasONo; //este array guarda la respuesta que se selecciona de una pregunta
+    
 
     /**
      * Creates new form FramePreguntas
@@ -25,6 +27,7 @@ public class FramePreguntas extends javax.swing.JFrame {
     public FramePreguntas(ConexionBD bd) {
         listapreguntas = bd.getPreguntasYRespuestas();
         numeroPregunta = 0;
+        
         setResizable(false);
         this.setUndecorated(true);
         this.getRootPane().setWindowDecorationStyle(JRootPane.FRAME);
@@ -32,12 +35,12 @@ public class FramePreguntas extends javax.swing.JFrame {
         setVisible(true);
         //Randomiza las preguntas
         Collections.shuffle(listapreguntas);
+        respuestasAcertadasONo = new Respuesta[listapreguntas.size()];
         escribirPyR();
-
     }
 
     public void escribirPyR() {
-
+        buttonGroup1.clearSelection();
         Pregunta preg = listapreguntas.get(numeroPregunta);
         labelNumPreg.setText(String.valueOf(numeroPregunta + 1));
         labelPregunta.setText("<html>" + preg.getTextoPregunta() + "</html>");
@@ -45,10 +48,28 @@ public class FramePreguntas extends javax.swing.JFrame {
         respuestaDos.setText("<html>" + preg.getRespuestaDos().getTextoRespuesta() + "</html>");
         respuestaTres.setText("<html>" + preg.getRespuestaTres().getTextoRespuesta() + "</html>");
         respuestaCuatro.setText("<html>" + preg.getRespuestaCuatro().getTextoRespuesta() + "</html>");
+        //Comprueba que una respuesta sea marcada. Si no es null, ergo una está marcada, comprueba si es la 1, 2, 3 o 4 y la marca.
+        if(respuestasAcertadasONo[numeroPregunta] != null) { 
+            Respuesta respuesta = respuestasAcertadasONo[numeroPregunta]; //Coge la pregunta actual.
+            if(respuestaUno.getText().equals("<html>" + respuesta.getTextoRespuesta() + "</html>")){
+                respuestaUno.setSelected(true);
+            }
+            else if(respuestaDos.getText().equals("<html>" + respuesta.getTextoRespuesta() + "</html>")) {
+                respuestaDos.setSelected(true);
+            }
+            else if(respuestaTres.getText().equals("<html>" + respuesta.getTextoRespuesta() + "</html>")) {
+                respuestaTres.setSelected(true);
+            }
+            else if(respuestaCuatro.getText().equals("<html>" + respuesta.getTextoRespuesta() + "</html>")) {
+                respuestaCuatro.setSelected(true);
+            }
+        }
         if (numeroPregunta + 1 == listapreguntas.size()) {
             botonSiguiente.setText("Finalizar");
         }
-
+        else{
+            botonSiguiente.setText("Siguiente");
+        }
     }
 
 //    public void escribirPyR() {
@@ -100,12 +121,27 @@ public class FramePreguntas extends javax.swing.JFrame {
 
         respuestaUno.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         respuestaUno.setText("jRadioButton1");
+        respuestaUno.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                respuestaUnoStateChanged(evt);
+            }
+        });
 
         respuestaDos.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         respuestaDos.setText("jRadioButton1");
+        respuestaDos.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                respuestaDosStateChanged(evt);
+            }
+        });
 
         respuestaTres.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         respuestaTres.setText("jRadioButton1");
+        respuestaTres.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                respuestaTresStateChanged(evt);
+            }
+        });
         respuestaTres.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 respuestaTresActionPerformed(evt);
@@ -114,6 +150,11 @@ public class FramePreguntas extends javax.swing.JFrame {
 
         respuestaCuatro.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         respuestaCuatro.setText("jRadioButton1");
+        respuestaCuatro.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                respuestaCuatroStateChanged(evt);
+            }
+        });
 
         botonSiguiente.setFont(new java.awt.Font("Century Gothic", 1, 16)); // NOI18N
         botonSiguiente.setText("Siguiente");
@@ -132,7 +173,7 @@ public class FramePreguntas extends javax.swing.JFrame {
         });
 
         version1.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
-        version1.setText("Test realizados por la Universidad de la Vida.");
+        version1.setText("Test realizado por la Universidad de la Vida.");
 
         jSeparator3.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
@@ -140,10 +181,6 @@ public class FramePreguntas extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(version1)
-                .addGap(156, 156, 156))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -177,6 +214,10 @@ public class FramePreguntas extends javax.swing.JFrame {
                 .addGap(83, 83, 83)
                 .addComponent(respuestaUno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(version1)
+                .addGap(148, 148, 148))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -229,14 +270,53 @@ public class FramePreguntas extends javax.swing.JFrame {
             escribirPyR();
         }
         else{
-            System.exit(0);
+            int aciertos = 0;
+            for(Respuesta resp : respuestasAcertadasONo){
+                if(resp != null) {
+                    if(resp.isVerdadero()) {
+                        aciertos++;
+                    }
+                }
+            } 
+            new FrameResultados(aciertos);
         }
-
+        
     }//GEN-LAST:event_botonSiguienteActionPerformed
 
     private void botonAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAnteriorActionPerformed
-        // TODO add your handling code here:
+        if(numeroPregunta > 0){
+            numeroPregunta--;
+            escribirPyR();
+        }
     }//GEN-LAST:event_botonAnteriorActionPerformed
+
+    private void respuestaUnoStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_respuestaUnoStateChanged
+        if(respuestaUno.isSelected()){
+            Pregunta pregunta = listapreguntas.get(numeroPregunta);//esto me da la pregunta que equivale a este número
+            respuestasAcertadasONo[numeroPregunta] = pregunta.respuestaUno; //selecciona la respuesta uno de cada pregunta.
+        }
+    }//GEN-LAST:event_respuestaUnoStateChanged
+
+    private void respuestaDosStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_respuestaDosStateChanged
+        if(respuestaDos.isSelected()){
+            Pregunta pregunta = listapreguntas.get(numeroPregunta);//esto me da la pregunta que equivale a este número
+            respuestasAcertadasONo[numeroPregunta] = pregunta.respuestaDos; //selecciona la respuesta dos de cada pregunta.
+        }
+    }//GEN-LAST:event_respuestaDosStateChanged
+
+    private void respuestaTresStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_respuestaTresStateChanged
+        if(respuestaTres.isSelected()){
+            Pregunta pregunta = listapreguntas.get(numeroPregunta);//esto me da la pregunta que equivale a este número
+            respuestasAcertadasONo[numeroPregunta] = pregunta.respuestaTres; //selecciona la respuesta tres de cada pregunta.
+        }
+    }//GEN-LAST:event_respuestaTresStateChanged
+
+    private void respuestaCuatroStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_respuestaCuatroStateChanged
+        if(respuestaCuatro.isSelected()){
+            Pregunta pregunta = listapreguntas.get(numeroPregunta);//esto me da la pregunta que equivale a este número
+            respuestasAcertadasONo[numeroPregunta] = pregunta.respuestaCuatro; //selecciona la respuesta cuatro de cada pregunta.
+        }
+    }//GEN-LAST:event_respuestaCuatroStateChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

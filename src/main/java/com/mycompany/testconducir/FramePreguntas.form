@@ -27,11 +27,6 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="1" attributes="0">
-              <EmptySpace max="32767" attributes="0"/>
-              <Component id="version1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="156" max="-2" attributes="0"/>
-          </Group>
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
@@ -74,6 +69,11 @@
               <EmptySpace min="-2" pref="83" max="-2" attributes="0"/>
               <Component id="respuestaUno" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
+          </Group>
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace max="32767" attributes="0"/>
+              <Component id="version1" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="148" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -147,6 +147,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="jRadioButton1"/>
       </Properties>
+      <Events>
+        <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="respuestaUnoStateChanged"/>
+      </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="buttonGroup1.add(respuestaUno);"/>
       </AuxValues>
@@ -158,6 +161,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="jRadioButton1"/>
       </Properties>
+      <Events>
+        <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="respuestaDosStateChanged"/>
+      </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="buttonGroup1.add(respuestaDos);"/>
       </AuxValues>
@@ -170,6 +176,7 @@
         <Property name="text" type="java.lang.String" value="jRadioButton1"/>
       </Properties>
       <Events>
+        <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="respuestaTresStateChanged"/>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="respuestaTresActionPerformed"/>
       </Events>
       <AuxValues>
@@ -183,6 +190,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="jRadioButton1"/>
       </Properties>
+      <Events>
+        <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="respuestaCuatroStateChanged"/>
+      </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="buttonGroup1.add(respuestaCuatro);"/>
       </AuxValues>
@@ -218,7 +228,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Century Gothic" size="12" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Test realizados por la Universidad de la Vida."/>
+        <Property name="text" type="java.lang.String" value="Test realizado por la Universidad de la Vida."/>
       </Properties>
     </Component>
     <Component class="javax.swing.JSeparator" name="jSeparator3">
