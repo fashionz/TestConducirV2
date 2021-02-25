@@ -278,7 +278,8 @@ public class FramePreguntas extends javax.swing.JFrame {
                     }
                 }
             } 
-            new FrameResultados(aciertos);
+            dispose();
+            new FrameResultados(aciertos, listapreguntas.size());
         }
         
     }//GEN-LAST:event_botonSiguienteActionPerformed

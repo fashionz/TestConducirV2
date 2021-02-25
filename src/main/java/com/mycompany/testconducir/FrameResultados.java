@@ -5,19 +5,42 @@
  */
 package com.mycompany.testconducir;
 
+import javax.swing.JFrame;
+import javax.swing.JRootPane;
+
 /**
  *
  * @author rober
  */
 public class FrameResultados extends javax.swing.JFrame {
-    int aciertos;
 
-    public FrameResultados(int aciertos) {
+    private int aciertos;
+    private int cantidadPreguntas;
+
+    public FrameResultados(int aciertos, int listapreguntas) {
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setResizable(false);
+        this.setUndecorated(true);
+        this.getRootPane().setWindowDecorationStyle(JRootPane.FRAME);
         this.aciertos = aciertos;
+        cantidadPreguntas = listapreguntas;
         initComponents();
+        aprobadoONo();
+        aciertosTotales();
         setVisible(true);
     }
-    
+
+    public void aprobadoONo() {
+        if (aciertos >= (cantidadPreguntas - 3)) {
+            labelResultadoExamen1.setText("Has aprobado el examen :)");
+        } else {
+            labelResultadoExamen1.setText("Has suspendido el examen :(");
+        }
+    }
+
+    public void aciertosTotales() {
+        labelAciertos1.setText("Tu resultado es " + aciertos + "/" + cantidadPreguntas);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -54,6 +77,7 @@ public class FrameResultados extends javax.swing.JFrame {
         labelResultadoExamen1.setText("jLabel1");
 
         labelAciertos1.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        labelAciertos1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelAciertos1.setText("jLabel1");
 
         version1.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
@@ -102,10 +126,12 @@ public class FrameResultados extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonMenuPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonMenuPrincipalActionPerformed
-        // TODO add your handling code here:
+        dispose();
+        new PanelPrincipal();
     }//GEN-LAST:event_botonMenuPrincipalActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
